@@ -1,18 +1,38 @@
-# Data Pipeline
+# System Architecture 
 
-## Raw Data Layer
+## Data Module Overview
 
-- **data source**: We use the yfinance library to download historical OHLCV market data.
-- **storage location**: Raw data is saved under `data/raw{ticker}.csv`.
-- **folder creation**: The script automatically creates the `data/raw` directory using `Path.mkdir(parents=True, exists_ok=True)`.
-- **defaut parameters**: By default, the script downloads SPY data starting from 2015-01-01 to the most recent available date. 
-- **file format**: Data is stored as CSV for simplicity and compatibility with pandas.
-            
-## Current Workflow
+- **purpose**: The data module handles downloading and storing raw market data for later use in backtesting and future generation.
+- **components**:
+    - `download_data()` function for fetching ticker data
+    - `data/raw/` directory for persistent storage
+- **design choice**: Using `pathlib.Path` ensures OS-independent file handling and clean path joining.
+- **execution behavior**: The script uses a `__main__` guard so it can be run directly or imported without triggering a download. 
 
-1. Call 'download_data(ticker, start, end)`
-2. Fetch data using `yf.download()`
-3. Save the resulting DataFrame to `data/raw/`
-4. Print a confirmation message
 
-This forms the foundation of the system's data ingestion layer
+## Data Cleaning and Pipeline Processing
+
+- **skip metadata rows**: The raw Yahoo Finance CSV includes two metadata rows; we load the file using `header=2` to use the correct header row.
+- **column normalization**: Columns are renamed to a consistent schema: `close`, `high`, `low`, `open`, `volume`.
+- **date parsing**: The index is converted to a proper `DatetimeIndex` for time-series operations.
+- **missing data handling**: Rows with missing values are dropped.
+- **returns calculation**: A new `returns` column is added using percentage change of the close price.
+- **processed output**: Cleaned data is saved to `data/processed/{ticker}_clean.csv`
+
+
+
+## Folder Structure
+```text
+trading-system/
+├── data/
+|   |-- processed/ #processed CSV files
+│   ├── raw/ # raw downloaded CSV files
+|   |-- clean_data.py # script to clean and process raw csv file
+    |-- download_data.py # script to download data from yfinance
+│   
+├── docs/
+│   └── ... # document files
+```
+This structure keeps raw data isolated and reproducible.
+
+

@@ -1,22 +1,24 @@
-# System Architecture 
+# Data Pipeline
 
-## Data Module Overview
+## Raw Data Layer
 
-- **purpose**: The data module handles downloading and storing raw market data for later use in backtesting and future generation.
-- **components**:
-    - `download_data()` function for fetching ticker data
-    - `data/raw/` directory for persistent storage
-- **design choice**: Using `pathlib.Path` ensures OS-independent file handling and clean path joining.
-- **execution behavior**: The script uses a `__main__` guard so it can be run directly or imported without triggering a download. 
+- **data source**: We use the yfinance library to download historical OHLCV market data.
+- **storage location**: Raw data is saved under `data/raw{ticker}.csv`.
+- **folder creation**: The script automatically creates the `data/raw` directory using `Path.mkdir(parents=True, exists_ok=True)`.
+- **defaut parameters**: By default, the script downloads SPY data starting from 2015-01-01 to the most recent available date. 
+- **file format**: Data is stored as CSV for simplicity and compatibility with pandas.
+            
+## Processed Data Layer
 
-## Folder Structure
-```text
-trading-system/
-├── data/
-│   ├── raw/ # raw downloaded CSV files
-    |-- download_data.py # script to download data from yfinance
-│   
-├── docs/
-│   └── ... # document files
-```
-This structure keeps raw data isolated and reproducible
+- **processed data module**: The clean_data.py script transforms raw CSV files into standardized, analysis-ready datasets. 
+- **data flow**: `data/raw -> clean_data.py -> data/processed`.
+- **consistency guarantees**: All processed files share the same column names, date index, and return calculations.
+
+## Current Workflow
+
+1. Call 'download_data(ticker, start, end)`
+2. Fetch data using `yf.download()`
+3. Save the resulting DataFrame to `data/raw/`
+4. Print a confirmation message
+
+This forms the foundation of the system's data ingestion layer
