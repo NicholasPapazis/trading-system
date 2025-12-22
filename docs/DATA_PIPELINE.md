@@ -19,6 +19,20 @@
 - **returns calculation**: A new `returns` column is added using percentage change of the close price.
 - **processed output**: Cleaned data is saved to `data/processed/{ticker}_clean.csv`
 
+## Processed Data -> Strategy Input
+
+The processed data pipeline produces standardized price series that are directly comsumed by strategy functions. 
+
+### Guarantees for Strategy Functions
+- Index is a proper `DatetimeIndex`
+- Columns follows a consistent schema: `open`, `high`, `low`, `close`, `volume`, `returns`
+- No missing values
+- Cleaned and algiend time series
+
+The `moving_average_crossover` strategy expects a `pd.Series` of cleaned close prices, typically: 
+```python
+prices = df["close"]
+```
 
 
 ## Folder Structure

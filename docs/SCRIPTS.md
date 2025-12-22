@@ -31,3 +31,5 @@ Loads raw Yahoo Finance CSVs, cleans them, and outputs standardized processed fi
 - adds a `returns` column based on close price.
 - Saves cleaned data to `data/processed/{ticker}_clean.csv`.
 - includes main guard just like `download_data.py`
+
+## Running the Moving Average Crossover Strategy

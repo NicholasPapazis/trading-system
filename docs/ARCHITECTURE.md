@@ -22,3 +22,16 @@
 4. Print a confirmation message
 
 This forms the foundation of the system's data ingestion layer
+
+## Strategy Layer
+
+The project includes a **strategy module** responsible for generating trading signals from processed market data. 
+
+### Moving Average Crossover
+The first implemented strategy is the **moving average crossover**, which: 
+- consumes cleaned price data from `data/processed/`
+- computes short-term and long-term moving averages
+- generates directional trading signals 
+- outputs a structured DataFrame for downstream components
+
+This strategy layer sits **after the data pipeline** and **before the backtesting engine**
