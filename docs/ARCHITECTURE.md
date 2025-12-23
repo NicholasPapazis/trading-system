@@ -27,12 +27,20 @@ This forms the foundation of the system's data ingestion layer
 
 The project includes a **strategy module** responsible for generating trading signals from processed market data. 
 
-### Moving Average Crossover
+### Moving Average Crossover (trend-following)
 The first implemented strategy is the **moving average crossover**, which: 
 - consumes cleaned price data from `data/processed/`
 - computes short-term and long-term moving averages
 - generates directional trading signals 
 - outputs a structured DataFrame for downstream components
+
+### RSI Mean Reversion (counter-trend)
+The second implemented strategy is the **RSI mean reversion strategy**, which: 
+- consumes cleaned price data from `data/processed/`
+- computes the Relative Strength Index (RSI) using rolling gains and losses
+- identifies oversold (long) and overbought (short) conditions based on thresholds
+- generates counter-trend trading signals
+- outputs a structured DataFrame containing price, RSI, and signals for downstream components. 
 
 This strategy layer sits **after the data pipeline** and **before the backtesting engine**
 

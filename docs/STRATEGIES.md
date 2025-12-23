@@ -23,7 +23,16 @@ moving_average_crossover(
 - **long_window (int)** - Slow moving average window. 
 
 ### Outputs 
-- A DataFrame containing price, short moving average, long moving average, trading signals
+A DataFrame containing:
+- price
+- short moving average
+- long moving average
+- trading signals
+
+Signals:
+- 1 -> long
+- -1 -> short
+- 0 -> neutral
 
 ---
 > **Note:** This strategy is most effective in trending markets and can produce "whipsaws" (false signals) in sideways/ranging markets.
@@ -46,3 +55,54 @@ This combined DataFrame is then passed into:
 ```python
 Backtester(signals)
 ```
+
+# RSI Mean Reversion Strategy
+
+## Overview
+The **RSI mean reversion strategy** assumes that extreme price moves tend to revert back toward the mean.
+It uses the Relative Strength Index (RSI) to identify overbought and oversold conditions.
+
+- **RSI < lower threshold** -> oversold -> long signal
+- **RSI > upper threshold** -> overbought -> short signal
+
+This strategy operates on processed price data produced by the data pipeline. 
+
+## Function Definition
+
+```python 
+rsi_mean_reversion(
+    prices: pd.Series,
+    window: int = 14,
+    lower_thresh: int = 30,
+    upper_thresh: int = 70
+) -> pd.DataFrame
+```
+
+## Inputs 
+- **prices(pd.Series)** - cleaned historical price series
+- **window(int)** - RSI lookback period
+- **lower_thresh(int)** - oversold threshold
+- **upper_thresh(int)** - overbought threshold
+
+## Outputs
+A DataFrame containing:
+- price
+- rsi
+- signal
+
+Signals:
+- 1 -> long
+- -1 -> short
+- 0 -> neutral
+
+## Integration With Backtesting
+```python
+signals = rsi_mean_reversion(df["close"])
+signals["returns"] = df["returns"]
+```
+This combined DataFrame is then passed into:
+```python
+Backtester(signal)
+```
+
+

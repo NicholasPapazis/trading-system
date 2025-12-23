@@ -23,6 +23,9 @@
 
 The processed data pipeline produces standardized price series that are directly comsumed by strategy functions. 
 
+Both Moving Average Crossover and RSI Mean Reversion strategies consume the same standardized processed data.
+The RSI Mean Reversion strategy specifically requires only the cleaned price series (typically `df["close"])`).
+
 ### Guarantees for Strategy Functions
 - Index is a proper `DatetimeIndex`
 - Columns follows a consistent schema: `open`, `high`, `low`, `close`, `volume`, `returns`
