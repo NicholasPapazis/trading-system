@@ -2,7 +2,7 @@
 
 The backtesting module evaluates trading strategies on historical data using vectorized, pandas-based approach.
 
--- 
+---
 
 ## Overview
 

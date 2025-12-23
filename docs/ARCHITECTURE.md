@@ -1,4 +1,4 @@
-# Data Pipeline
+# System Architecture
 
 ## Raw Data Layer
 
