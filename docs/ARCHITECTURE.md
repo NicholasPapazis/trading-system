@@ -35,3 +35,23 @@ The first implemented strategy is the **moving average crossover**, which:
 - outputs a structured DataFrame for downstream components
 
 This strategy layer sits **after the data pipeline** and **before the backtesting engine**
+
+## Backtesting Layer
+
+The system includes a **backtesting engine** that evaluates strategy performance on the historical data.
+
+### Backtester Class
+The `Backtester` converts trading signals into actionable positions and computes performance metrics.
+
+- **no-lookahead positions**: signals are sifted by one period to avoid using future information
+- **strategy returns**: computed by multiplying positions by asset returns
+- **cumulative equity**: tracks portfolio value over time
+- **performance metrics**: 
+    - total return
+    - annualized Sharpe ratio
+    - macimum drawdown
+
+### Data Flow
+`processed data -> strategy -> Backtester -> performance metrics`
+
+This layer sits **after the strategy module** and provides the foundation for evaluating and comparing trading strategies. 

@@ -34,6 +34,21 @@ The `moving_average_crossover` strategy expects a `pd.Series` of cleaned close p
 prices = df["close"]
 ```
 
+## Strategy Output -> Backtesting Input
+
+The backtester requires the processed dataset to include:
+
+- a `returns` column (daily percentage returns)
+- a clean `DatetimeIndex`
+- aligned price and signal series
+
+Strategy functions generate a `signal` column, and the backtester consumes: 
+
+- **returns** (from the data pipeline)
+- **signal** (from the strategy)
+
+These two columns form the core inputs for computing positions and strategy returns.
+
 
 ## Folder Structure
 ```text
