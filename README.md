@@ -74,13 +74,32 @@ These metrics are applied to backtesting results to compare different strategies
 Portfolio performance is visualized using equity curve plots generated with Matplotlib. These plots show portfolio value over time and are used to analyze and compare strategy behavior
 
 ## How to Run
-1. Install dependencies:
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd <repository-name>
+```
+2. Create a virtual environment
+```bash
+python -m venv venv
+```
+3. Activate the virtual environment
+macOS/Linux
+```bash
+source venv/bin/activate
+```
+Windows
+```bash
+venv\Scripts\activate
+```
+4. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
-2. Download and clean historical data:
+5. Download and clean historical data
 ```bash
 python data/download_data.py
 python data/clean_data.py
 ```
-3. Run strategy backtests and visualizations using the notebooks in the notebooks/ directory. 
+6. Run strategy backtests and visualizations using the notebooks in the notebooks/ directory. 
