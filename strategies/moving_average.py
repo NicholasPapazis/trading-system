@@ -1,3 +1,11 @@
+"""
+Moving Average Crossover Strategy
+
+This module implements a trend-following strategy that generates signals
+based on short-term and long-term moving average crossovers.
+"""
+
+
 import pandas as pd
 
 #define function for the strategy

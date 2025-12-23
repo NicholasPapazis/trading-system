@@ -1,3 +1,12 @@
+"""
+Backtesting Engine
+
+This module defines a simple backtesting engine that converts trading
+signals into positions and evaluates strategy performance using common
+financial metrics.
+"""
+
+
 import pandas as pd
 import numpy as np
 

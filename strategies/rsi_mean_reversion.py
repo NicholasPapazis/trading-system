@@ -1,3 +1,12 @@
+"""
+RSI Mean Reversion Strategy
+
+This module implements a mean reversion trading strategy based on the
+Relative Strength Index (RSI). The strategy generates buy and sell signals
+when RSI indicates oversold or overbought conditions.
+"""
+
+
 import pandas as pd
 import numpy as np
 
