@@ -78,7 +78,7 @@ Portfolio performance is visualized using equity curve plots generated with Matp
 1. Clone the repository
 ```bash
 git clone <repository-url>
-cd <repository-name>
+cd trading-system
 ```
 2. Create a virtual environment
 ```bash
